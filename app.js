@@ -37,3 +37,4 @@ function ticketCountHandaler(ticket , isIncrease){
         const ticketCount = parseInt(ticketInput.value);
         return ticketCount;
     }
+    
