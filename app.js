@@ -1,44 +1,39 @@
 function ticketCountHandaler(ticket , isIncrease){
-    const firstClassInput = document.getElementById(ticket + '-class-count');
-    const firstClassCount = parseInt(firstClassInput.value);
-    let firstClassNewCount = firstClassCount;
+    const ticketInput = document.getElementById(ticket + '-class-count');
+    const ticketCount = parseInt(ticketInput.value);
+    let ticketNewCount = ticketCount;
     if(isIncrease == true){
-        firstClassNewCount = firstClassCount + 1;
+        ticketNewCount = ticketCount + 1;
     }
-    if(isIncrease == false && firstClassCount > 1){
-        firstClassNewCount = firstClassCount - 1;
+    if(isIncrease == false && ticketCount > 0){
+        ticketNewCount = ticketCount - 1;
     }
-    let firstClassTotal = firstClassNewCount;
+    let totalTicket = ticketNewCount;
     if(ticket == 'first'){
-        firstClassTotal = firstClassNewCount * 150;
+        totalTicket = ticketNewCount * 150;
     }
     if( ticket == 'economy'){
-        firstClassTotal = firstClassNewCount * 100;
+        totalTicket = ticketNewCount * 100;
     }
-    firstClassInput.value = firstClassNewCount;
-    document.getElementById(ticket + '-class-total').innerText = firstClassTotal;
+    ticketInput.value = ticketNewCount;
+    //document.getElementById(ticket + '-class-total').innerText = firstClassTotal;
+    calculateTotal();
 }
 
+    function calculateTotal(){
+        const firstClassCount = getInputValue('first');
+        const economyClassCount = getInputValue('economy');
+        
+        const totalCalculate = firstClassCount * 150 + economyClassCount * 100;
+        document.getElementById('sub-total').innerText = totalCalculate;
+        const tax = Math.round((totalCalculate / 100) * 10);
+        document.getElementById('tax').innerText = tax;
+        const grandTotal = totalCalculate + tax;
+        document.getElementById('grand-total').innerText = grandTotal;
+    }
 
-
-
-
-
-// document.getElementById('first-class-increase').addEventListener('click', function(){
-//     const firstClassInput = document.getElementById('first-class-count');
-//     const firstClassCount = parseInt(firstClassInput.value);
-//     const firstClassNewCount = firstClassCount + 1;
-//     firstClassInput.value = firstClassNewCount;
-//     const firstClassTotal = firstClassNewCount * 150;
-//     document.getElementById('first-class-total').innerText = firstClassTotal;
-// });
-
-// document.getElementById('first-class-decrease').addEventListener('click', function(){
-//     const firstClassInput = document.getElementById('first-class-count');
-//     const firstClassCount = parseInt(firstClassInput.value);
-//     const firstClassNewCount = firstClassCount - 1;
-//     firstClassInput.value = firstClassNewCount;
-//     const firstClassTotal = firstClassNewCount * 150;
-//     document.getElementById('first-class-total').innerText = firstClassTotal;
-    
-// });
+    function getInputValue(ticket){
+        const ticketInput = document.getElementById(ticket + '-class-count');
+        const ticketCount = parseInt(ticketInput.value);
+        return ticketCount;
+    }
